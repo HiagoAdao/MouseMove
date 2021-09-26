@@ -59,7 +59,7 @@ class MouseMove: # Criação da classe
             )  # Loga último comando utilizado
 
             cv2.imshow(
-                "Executando comandos do mouse com cores |"
+                "Simulando comandos do mouse com cores | "
                 "Trabalho G1 | Hiago e Isaura",
                 frame
             )  # Mostra resultado da imagem/frame processado em uma janela
