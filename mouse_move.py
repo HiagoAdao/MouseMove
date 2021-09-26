@@ -48,8 +48,9 @@ class MouseMove:
             frame = cv2.flip(frame, 1)
             command: Callable = self.__get_command_by_color_in_frame(frame)
 
-            command and command()
-            self.__commands['last_command_used'] = command and command.__name__
+            if command:
+                command()
+                self.__commands['last_command_used'] = command.__name__
 
             print(
                 '[INFO] '
@@ -93,15 +94,20 @@ class MouseMove:
         is_double_click = bool(
             has_purple_in_frame and
             has_yellow_in_frame and
-            'double_click' != self.__commands['last_command_used']
+            '__double_click_command' != self.__commands['last_command_used']
         )
         is_right_button = bool(
             has_purple_in_frame and
-            'right_button' != self.__commands['last_command_used']
+            '__right_button_command' != self.__commands['last_command_used']
         )
         is_left_button = bool(
             has_yellow_in_frame and
-            'left_button' != self.__commands['last_command_used']
+            '__left_button_command' != self.__commands['last_command_used']
+        )
+        is_cursor_follow_color = bool(
+            not has_purple_in_frame and
+            not has_yellow_in_frame and
+            has_green_in_frame
         )
         if is_double_click:
             return self.__commands['double_click']
@@ -111,7 +117,7 @@ class MouseMove:
             return self.__commands['left_button']
         elif has_blue_in_frame:
             return self.__commands['stop_execution']
-        elif has_green_in_frame:
+        elif is_cursor_follow_color:
             self.__mouse_position = position
             return self.__commands['cursor_follow_color']
 
