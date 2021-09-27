@@ -104,10 +104,12 @@ class MouseMove: # Criação da classe
         )  # Variável para identificação de simulação de duplo clique a partir da presença de roxo e amarelo na imagem/frame
         is_right_button = bool(
             has_purple_in_frame and
+            not has_yellow_in_frame and
             '__right_button_command' != self.__commands['last_command_used']
         )  # Variável para identificação de simulação de clique com botão direito do mouse a partir da presença de roxo na imagem/frame
         is_left_button = bool(
             has_yellow_in_frame and
+            not has_purple_in_frame and 
             '__left_button_command' != self.__commands['last_command_used']
         )  # Variável para identificação de simulação de clique com botão esquerdo do mouse a partir da presença de amarelo na imagem/frame
         is_cursor_follow_color = bool(
@@ -117,10 +119,10 @@ class MouseMove: # Criação da classe
         )   # Variável para identificação para simulação de movimento do cursor a partir da ausência de amarelo e roxo e da presença de verde na imagem/frame
         if is_double_click:  # Verifica se o comando é de simulação de duplo clique
             return self.__commands['double_click']  # Retorna comando de duplo clique
-        elif is_right_button:  # Verifica se o comando é de simulação de clique com botão direito
-            return self.__commands['right_button']  # Retorna comando de simulação de clique com botão direito
         elif is_left_button:  # Verifica se o comando é de simulação de clique com botão esquerdo
             return self.__commands['left_button']  # Retorna comando de simulação de clique com botão esquerdo
+        elif is_right_button:  # Verifica se o comando é de simulação de clique com botão direito
+            return self.__commands['right_button']  # Retorna comando de simulação de clique com botão direito
         elif has_blue_in_frame:  # Verifica se o comando é para parar a execução do programa
             return self.__commands['stop_execution']  # Retorna comando que para a execução do programa
         elif is_cursor_follow_color:  # Verifica se o comando é para cursor seguir a cor
