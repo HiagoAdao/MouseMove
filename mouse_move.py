@@ -39,7 +39,7 @@ class MouseMove: # Criação da classe
         self.__mouse_position = pyautogui.position()  # Obtém posição atual do cursor no sistema
 
     def run(self) -> None:
-        '''Função principal da classe, responsável pela execução em tempo real do programa'''
+        """Função principal da classe, responsável pela execução em tempo real do programa"""
         is_running = bool(
             self.__commands['last_command_used'] !=
             self.__stop_execution_command.__name__
@@ -74,7 +74,7 @@ class MouseMove: # Criação da classe
                 break  # Para o laço de repetição
 
     def __get_command_by_color_in_frame(self, frame) -> Callable:
-        '''Função responsável por obter um comando a partir de uma cor capturada na imagem/frame'''
+        """Função responsável por obter um comando a partir de uma cor capturada na imagem/frame"""
         hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)  # Transforma imagem/frame em padrão de cores HSV
         has_blue_in_frame, _ = self.__identify_color(
             frame,
@@ -130,7 +130,7 @@ class MouseMove: # Criação da classe
             return self.__commands['cursor_follow_color']  # Retorna comando para cursor seguir a cor
 
     def __identify_color(self, frame, frame_hsv, color_hsv) -> Tuple[bool, tuple]:
-        '''Função responsável por identificar cor na imagem/frame'''
+        """Função responsável por identificar cor na imagem/frame"""
         mask = cv2.inRange(frame_hsv, *color_hsv)  # Obtém máscara aplicada na imagem/frame para uma cor em hsv
         _, border = cv2.threshold(
             cv2.cvtColor(
@@ -165,25 +165,25 @@ class MouseMove: # Criação da classe
         return found_color, color_position  # Retorna indicativo de cor encontrada e posição da mesma
 
     def __cursor_follow_color_command(self) -> None:
-        '''Função responsável por movimentar o cursor do mouse para uma determinada posição'''
+        """Função responsável por movimentar o cursor do mouse para uma determinada posição"""
         color_x_position, color_y_position = self.__mouse_position  # Extrai nova posição (x e y) do cursor
         if pyautogui.onScreen(color_x_position, color_y_position):  # Verifica se a nova posição está dentro da tela do sistema
             pyautogui.moveTo(color_x_position, color_y_position)  # Move o cursor do mouse para a nova posição
 
     def __left_button_command(self) -> None:
-        '''Função responsável por simular clique com botão esquerdo do mouse'''
+        """Função responsável por simular clique com botão esquerdo do mouse"""
         pyautogui.click(button=pyautogui.LEFT)  # Simula clique com botão esquerdo do mouse
 
     def __right_button_command(self) -> None:
-        '''Função responsável por simular clique com botão direito do mouse'''
+        """Função responsável por simular clique com botão direito do mouse"""
         pyautogui.click(button=pyautogui.RIGHT)  # Simula clique com botão direito do mouse
 
     def __double_click_command(self) -> None:
-        '''Função responsável por simular duplo clique do mouse'''
+        """Função responsável por simular duplo clique do mouse"""
         pyautogui.doubleClick()  # Simula duplo clique do mouse
 
     def __stop_execution_command(self) -> None:
-        '''Função responsável por parar execução do programa'''
+        """Função responsável por parar execução do programa"""
         cv2.destroyAllWindows()  # Fecha todas as janelas do programa
 
 
